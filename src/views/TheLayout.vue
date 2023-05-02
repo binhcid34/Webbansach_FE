@@ -26,8 +26,9 @@ export default {
         // console.log("The Layout created.");
     },
     computed: {
-        ...mapState({ isLoading: state => state.isLoading }),
+        ...mapState({ isLoading: state => state.loading.isLoading }),
     }
+    
 }
 </script>
 
