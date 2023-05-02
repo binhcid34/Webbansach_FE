@@ -321,18 +321,21 @@ export default {
             const childComponent = this.$refs.pagination;
             childComponent.chooseFirstPage();
             if (item.idCategory === 0) {
+                this.toggleLoading(false);
                 await this.getAllProduct();
             }
             else {
                 await getProductFilterByCategory(this.pageNumber, this.pageSize, this.searchKey, item.idCategory)
                     .then(res => {
-                        this.toggleLoading(true);
+                        this.toggleLoading(false);
                         res.data.data.map(i => i.imageProduct = this.formatImage(i.imageProduct));
                         this.updateListProduct(res.data.data);
                         let totalRecord = res.data.totalRecord;
                         this.pageCount = Math.ceil(totalRecord / this.pageSize);
                     })
             }
+            this.toggleLoading(false);
+
         },
         priceAfterDiscount(item) {
             return formatCurrencyVi(item.priceProduct - (item.priceProduct * item.discountSale / 100));
