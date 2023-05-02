@@ -74,7 +74,7 @@
                     <div class="discount-percent-title">-{{ item.discountSale }}%</div>
                     <img :src="item.imageProduct" @load="onImageLoad(index)" @click="openDetail(item.idProduct)">
                     <div class="product-info">
-                        <p id="product-name" class="hover-text-underline" @click="addToCart(item)">{{ item.nameProduct }}
+                        <p id="product-name" class="hover-text-underline">{{ item.nameProduct }}
                         </p>
                         <p id="product-author" class="hover-text-underline">{{ item.author }}</p>
                         <div id="product-price">
@@ -250,25 +250,25 @@ export default {
                 setTimeout(this.showSlides, 2000); // Change image every 2 seconds
             }
         },
-        async addToCart(item) {
-            item.quantity = 1;
-            item.imageProduct = null;
-            // let cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
-            let itemExisted = false;
-            this.cartItems.map(i => {
-                if (i.idProduct === item.idProduct) {
-                    i.quantity++;
-                    itemExisted = true;
-                }
-            });
-            if (!itemExisted) {
-                this.cartItems.push(item);
-            }
-            await addItems(this.cartItems)
-                .then(res => {
-                });
-            this.updateQuantityCart(this.cartItems.length);
-        },
+        // async addToCart(item) {
+        //     item.quantity = 1;
+        //     item.imageProduct = null;
+        //     // let cartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
+        //     let itemExisted = false;
+        //     this.cartItems.map(i => {
+        //         if (i.idProduct === item.idProduct) {
+        //             i.quantity++;
+        //             itemExisted = true;
+        //         }
+        //     });
+        //     if (!itemExisted) {
+        //         this.cartItems.push(item);
+        //     }
+        //     await addItems(this.cartItems)
+        //         .then(res => {
+        //         });
+        //     this.updateQuantityCart(this.cartItems.length);
+        // },
         async getAllProduct() {
             await getProductFilter(this.pageNumber, this.pageSize, this.searchKey)
                 .then(res => {

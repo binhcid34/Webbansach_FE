@@ -63,6 +63,9 @@ export default {
             await getItems()
             .then(res => {
                 if(res.data) {
+                    res.data.orderDetail.map((element, index) => {
+                        element.imageProduct = res.data.listImage[index];
+                    });
                     this.updateQuantityCart(res.data.orderDetail.length);
                     this.updateCartItems(res.data.orderDetail);
                     this.updateTotalAmount(res.data.totalPayment);
