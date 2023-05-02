@@ -8,7 +8,7 @@
                     <li><i class="fas fa-gift"></i>Ưu đãi</li>
                     <li @click="redirectHistory" v-if="logged"><i class="fas fa-history"></i>Lịch sử mua hàng</li>
                     <li @click="redirectLogin" v-if="!logged"><i class="fas fa-sign-in-alt"></i>Đăng nhập</li>
-                    <li  v-if="!logged"><i class="fas fa-user-plus"></i>Đăng ký</li>
+                    <li  @click="redirectRegister" v-if="!logged"><i class="fas fa-user-plus"></i>Đăng ký</li>
                     <li v-if="logged" @click="logOut"><i class="fa-solid fa-arrow-right-from-bracket"></i>Đăng xuất</li>
                 </ul>
             </div>
@@ -119,6 +119,9 @@ export default {
         },
         redirectAdmin() {
             this.$router.push('/dashboard');
+        },
+        redirectRegister() {
+            this.$router.push('/register');
         }
 
     },
