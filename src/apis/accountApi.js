@@ -29,3 +29,11 @@ export function checkPermission() {
         methods: 'get'
     })
 }
+
+export function register(param) {
+    return request({
+        url: '/account/register',
+        method: 'post',
+        data: param
+    })
+}

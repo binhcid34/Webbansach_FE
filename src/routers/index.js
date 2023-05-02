@@ -7,6 +7,7 @@ import TheContent from '../components/TheContent.vue'
 import TheLogin from '../components/TheLogin.vue'
 import TheCart from '../components/TheCart.vue'
 import HistoryOrder from '../components/HistoryOrder.vue'
+import TheRegister from '../components/TheRegister.vue'
 
 import TheManageUser from '../components/tables/TheManageUser.vue'
 import TheManageProduct from '../components/tables/TheManageProduct.vue'
@@ -77,6 +78,11 @@ const routes = [
       path: '/login',
       name: 'Login',
       component: TheLogin
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: TheRegister
     }
 ];
 
