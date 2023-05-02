@@ -1,9 +1,6 @@
 <template>
     <router-view></router-view>
-   <apexchart 
-     width="500" type="bar" 
-     :options="options" :series="series">
-   </apexchart>  
+  
 </template>
 
 <script>
