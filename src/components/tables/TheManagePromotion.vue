@@ -29,6 +29,8 @@ import { useToast } from 'vue-toastification';
 import {getAllOrder, filterOrder, getAllPromotion, createNewPromotion} from '../../apis/adminApi'
 import DetailUserPopup from '../popups/DetailUserPopup.vue';
 import ThePromotionTable from './ThePromotionTable.vue'
+import { mapState, mapActions } from 'vuex';
+
 export default {
     setup() {
         const setupToast = useToast();
@@ -62,9 +64,14 @@ export default {
        }
    },
    methods: {
+    ...mapActions({
+            toggleLoading: 'loading/toggleLoading',
+        }),
       async getAllPromotion() {
        const me = this;
+       me.toggleLoading(true);
            await getAllPromotion().then((res) => {
+                me.toggleLoading(false);
                if (res.data) {
                    me.listOrder = res.data;
                }
@@ -130,7 +137,7 @@ export default {
    },
    created() {
        this.getAllPromotion();
-   },
+   }
    
  
 }

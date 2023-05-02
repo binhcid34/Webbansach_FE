@@ -6,13 +6,13 @@ export default {
     }),
     getters: {},
     mutations: {
-        TOGGLE_LOADING(state) {
-            state.isLoading = !state.isLoading;
+        TOGGLE_LOADING(state, stateLoading) {
+            state.isLoading = stateLoading;
         },
     },
     actions: {
-        toggleLoading({ commit }) {
-            commit('TOGGLE_LOADING');
+        toggleLoading({ commit }, stateLoading) {
+            commit('TOGGLE_LOADING', stateLoading);
         },
     }
   }

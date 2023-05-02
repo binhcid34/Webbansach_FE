@@ -64,8 +64,10 @@ export default {
     },
     async created() {
         const id = this.$route.query.id;
+        this.toggleLoading(true);
         await getProductDetail(id)
             .then(res => {
+                this.toggleLoading(false);
                 this.product = res.data.shift();
             })
     },
@@ -74,6 +76,7 @@ export default {
             updateQuantityCart: 'cart/updateQuantityCart',
             updateCartItems: 'cart/updateCartItems',
             updateTotalAmount: 'cart/updateTotalAmount',
+            toggleLoading: 'loading/toggleLoading',
         }),
         formatCurrencyVi,
         async addToCart() {
@@ -102,8 +105,10 @@ export default {
             if (!itemExisted) {
                 this.cartItems.push(this.product);
             }
+            this.toggleLoading(true);
             await addItems(this.cartItems)
                 .then(res => {
+                    this.toggleLoading(false);
                     this.updateTotalAmount(res.data.totalPayment);
                 });
             this.updateQuantityCart(this.cartItems.length);
@@ -116,19 +121,24 @@ export default {
                     icon: true,
                     rtl: false
                 });
+
         },
         formatImage(url) {
+            this.toggleLoading(true);
             if (url != null) {
                 url = 'data:image/jpeg;base64,' + url;
             }
             else{
                 url = 'src/assets/icon_book.png';
             }
+            this.toggleLoading(false);
             return url;
         }
     },
     computed: {
         ...mapState({ cartItems: state => state.cart.cartItems }),
+        ...mapState({isLoading: state => state.loading.isLoading}),
+
         productCategory() {
             return this.product.nameCategory ? this.product.nameCategory : "Khác";
         },

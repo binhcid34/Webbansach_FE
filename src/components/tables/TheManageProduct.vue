@@ -29,14 +29,21 @@ import TheTable from './TheTable.vue';
 import {getProductFilter} from '../../apis/productApi';
 import ThePagination from '../ThePagination.vue';
 import DetailPopup from '../popups/DetailPopup.vue';
+import { mapState, mapActions } from 'vuex';
+
 export default {
     components: { TheTable, ThePagination, DetailPopup },
     created(){
         this.getProduct();
     },
     methods: {
+        ...mapActions({
+            toggleLoading: 'loading/toggleLoading',
+        }),
        async getProduct() {
+            this.toggleLoading(true);
             await getProductFilter(this.pageNumber,this.pageSize,this.filterSearch).then((res) => {
+                this.toggleLoading(false);
                 if (res.data && res.data.data) {
                     this.listProduct = res.data.data;
                     this.caculationPageCount(res.data.totalRecord)

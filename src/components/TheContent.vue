@@ -187,6 +187,7 @@ export default {
     created() {
         // this.getCategory();
         this.getAllProduct();
+        this.toggleLoading(true);
     },
     mounted() {
         this.showSlides();
@@ -196,7 +197,9 @@ export default {
             updateQuantityCart: 'cart/updateQuantityCart',
             updateCartItems: 'cart/updateCartItems',
             updateListProduct: 'product/SET_LIST_PRODUCT',
+            toggleLoading: 'loading/toggleLoading',
         }),
+        
         minusIndex() {
             if(this.currentIndex === 1) {
                 this.currentIndex = this.quantityDiscount;
@@ -270,8 +273,10 @@ export default {
         //     this.updateQuantityCart(this.cartItems.length);
         // },
         async getAllProduct() {
+            this.toggleLoading(true);
             await getProductFilter(this.pageNumber, this.pageSize, this.searchKey)
                 .then(res => {
+                    this.toggleLoading(false);
                     if (res.data) {
                         res.data.data.map(i => i.imageProduct = this.formatImage(i.imageProduct));
                         this.updateListProduct(res.data.data);
@@ -285,14 +290,17 @@ export default {
                 });
         },
         async getCategory() {
+            this.toggleLoading(true);
             await getCategory()
                 .then(res => {
+                    this.toggleLoading(false);
                     if (res.data) {
                         this.category = res.data;
                     }
                 });
         },
         async choosePage(page) {
+            this.toggleLoading(true);
             this.pageNumber = page;
             if (this.idCategory === 0) {
                 await this.getAllProduct();
@@ -300,12 +308,14 @@ export default {
             else {
                 await getProductFilterByCategory(this.pageNumber, this.pageSize, this.searchKey, this.idCategory)
                     .then(res => {
+                        this.toggleLoading(false);
                         res.data.data.map(i => i.imageProduct = this.formatImage(i.imageProduct));
                         this.updateListProduct(res.data.data);
                     })
             }
         },
         async selectCategory(item) {
+            this.toggleLoading(true);
             this.idCategory = item.idCategory;
             this.pageNumber = 1;
             const childComponent = this.$refs.pagination;
@@ -316,6 +326,7 @@ export default {
             else {
                 await getProductFilterByCategory(this.pageNumber, this.pageSize, this.searchKey, item.idCategory)
                     .then(res => {
+                        this.toggleLoading(true);
                         res.data.data.map(i => i.imageProduct = this.formatImage(i.imageProduct));
                         this.updateListProduct(res.data.data);
                         let totalRecord = res.data.totalRecord;
@@ -340,6 +351,7 @@ export default {
         ...mapState({ products: state => state.product.listProduct }),
         ...mapState({ searchKey: state => state.product.searchKeyWord }),
         ...mapState({ cartItems: state => state.cart.cartItems }),
+        ...mapState({isLoading: state => state.loading.isLoading}),
     },
     watch: {
         async searchKey(newVal) {

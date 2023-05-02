@@ -115,6 +115,7 @@ import TheTable from '../../components/tables/TheTable.vue';
 import { getCountProduct } from '../../apis/productApi';
 import {getCountUser} from '../../apis/accountApi';
 import {dashboardAdmin} from '../../apis/adminApi'
+import { mapActions } from 'vuex';
 export default{
     components:{ TheUserTable, SplineChart, PieChart, ProgressBar, TheTable },
 
@@ -142,8 +143,9 @@ export default{
         //         this.totalUser = res.data[0].total
         //     }
         // })
-
+        me.toggleLoading(true);
         await dashboardAdmin().then(res => {
+            me.toggleLoading(false);
             if (res && res.success) {
                 if (res.orderDashboard) {
                     me.orderDashboard = res.orderDashboard;
@@ -165,6 +167,9 @@ export default{
         })
     }, 
     methods: {
+        ...mapActions({
+            toggleLoading: 'loading/toggleLoading',
+        }),
         fomartChart() {
             const me = this;
             for (var i = me.chartOrder.length - 1 ; i >= 0; i--) {

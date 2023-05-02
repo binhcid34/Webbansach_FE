@@ -28,6 +28,7 @@
 import {getAllUser, getAllUserByName} from '../../apis/adminApi'
 import DetailUserPopup from '../popups/DetailUserPopup.vue';
 import TheUserTable from './TheUserTable.vue';
+import { mapState, mapActions } from 'vuex';
 export default {
     components: { TheUserTable, DetailUserPopup },
     data() {
@@ -55,9 +56,14 @@ export default {
         }
     },
     methods: {
+        ...mapActions({
+            toggleLoading: 'loading/toggleLoading',
+        }),
        async getUser() {
         const me = this;
+            me.toggleLoading(true);
             await getAllUser().then((res) => {
+                me.toggleLoading(false);
                 if (res.data) {
                     me.listUser = res.data;
                 }
@@ -72,7 +78,9 @@ export default {
         },
         filterUserBySearch() {
             const me = this;
+            me.toggleLoading(true);
             getAllUserByName(this.filterSearch).then((res) => {
+                me.toggleLoading(false);
                     me.listUser = res.data;
                 })
         }

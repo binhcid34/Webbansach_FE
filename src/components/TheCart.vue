@@ -12,7 +12,7 @@
                         <th></th>
                         <th>Tên sách</th>
                         <th>Số lượng</th>
-                        <th>Giá</th>
+                        <th>Thành tiền</th>
                         <th></th>
                     </tr>
                     <tr v-for="(item, index) in cartItems" :key="index" class="row-item">
@@ -90,12 +90,15 @@ export default {
             updateCartItems: 'cart/updateCartItems',
             updateTotalAmount: 'cart/updateTotalAmount',
             updatePromotionPercent: 'cart/updatePromotionPercent',
+            toggleLoading: 'loading/toggleLoading',
         }),
         formatCurrencyVi,
         async applyPromotion() {
+            this.toggleLoading(true);
             if (this.promotionCode != '' && this.promotionCode.length  == 8) {
                 await applyPromotionCode(this.promotionCode)
                     .then(res => {
+                        this.toggleLoading(false);
                         const toast = useToast();
                         if (res.success && res.data) {
                             this.updateTotalAmount(res.data.totalPayment);
@@ -122,6 +125,7 @@ export default {
                        
                     })
             } else {
+                this.toggleLoading(false);
                 const toast = useToast();
                             toast.error('Mã giảm giá phải là 8 kí tự', {
                                 position: "top-center",
@@ -134,11 +138,13 @@ export default {
             }
         },
         async deleteItem(item) {
+            this.toggleLoading(true);
             const newCartItems = this.cartItems.filter(i => i.idProduct != item.idProduct);
             this.updateQuantityCart(newCartItems.length);
             this.updateCartItems(newCartItems);
             await addItems(newCartItems)
                 .then(res => {
+                this.toggleLoading(false);
                     this.updateTotalAmount(res.data.totalPayment);
                 });
         },
@@ -152,8 +158,10 @@ export default {
                     return;
                 }
             })
+            this.toggleLoading(true);
             await addItems(this.cartItems)
                 .then(res => {
+                    this.toggleLoading(false);
                     this.updateTotalAmount(res.data.totalPayment);
                 });
         },
@@ -164,8 +172,10 @@ export default {
                     return;
                 }
             })
+            this.toggleLoading(true);
             await addItems(this.cartItems)
                 .then(res => {
+                    this.toggleLoading(false);
                     this.updateTotalAmount(res.data.totalPayment);
                 });
         },
@@ -227,6 +237,7 @@ export default {
         ...mapState({ cartItems: state => state.cart.cartItems }),
         ...mapState({ totalAmountAfterDiscount: state => state.cart.totalAmount }),
         ...mapState({ promotionPercent: state => state.cart.promotionPercent }),
+        ...mapState({isLoading: state => state.loading.isLoading}),
         totalAmount() {
             let total = 0;
             this.cartItems.forEach(i => {

@@ -27,6 +27,7 @@
             </div>
         </div>
     </div>
+    <TheLoading v-if="isLoading"/>
 </template>
 
 
@@ -35,6 +36,9 @@ import { useToast } from 'vue-toastification';
 import { checkPermission } from '../apis/accountApi';
 import TheSideBarAdmin from '../components/TheSideBarAdmin.vue';
 import TheUserTable from '../components/TheUserTable.vue';
+import TheLoading from '../components/TheLoading.vue';
+import { mapState, mapActions } from 'vuex';
+
 export default {
     setup() {
     // Option 2 (preferred): Inject the app-provided toast interface and return it from setup
@@ -64,11 +68,14 @@ export default {
         }
     },
     
-    components:{ TheSideBarAdmin, TheUserTable },
+    components:{ TheSideBarAdmin, TheUserTable, TheLoading },
 
     async created() {
         const me = this;
         await me.checkPermission();
+    },
+    computed: {
+        ...mapState({isLoading: state => state.loading.isLoading}),
     }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
     <div class="main-layout-wrapper">
         <TheHeader />
-        <router-view v-if="!isLoading"></router-view>
+        <router-view></router-view>
         <TheLoading v-if="isLoading"/>
         <TheFooter />
     </div>

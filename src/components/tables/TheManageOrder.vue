@@ -29,6 +29,7 @@
 import {getAllOrder, filterOrder} from '../../apis/adminApi'
 import DetailUserPopup from '../popups/DetailUserPopup.vue';
 import TheOrderTable from './TheOrderTable.vue';
+import { mapState, mapActions } from 'vuex';
 export default {
    components: {  DetailUserPopup, TheOrderTable },
    data() {
@@ -56,9 +57,14 @@ export default {
        }
    },
    methods: {
+    ...mapActions({
+            toggleLoading: 'loading/toggleLoading',
+        }),
       async getUser() {
        const me = this;
+       me.toggleLoading(true);
            await getAllOrder().then((res) => {
+            me.toggleLoading(false);
                if (res.data) {
                    me.listOrder = res.data;
                }
