@@ -77,4 +77,11 @@ export function deletePrmotion(param) {
         url:  `admin/deletePrmotion/${param}`,
         method: 'delete'
     })
-} 
+}
+
+export function deleteProduct(param) {
+    return request ({
+        url:  `admin/deleteProduct/${param}`,
+        method: 'delete'
+    })
+}

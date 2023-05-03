@@ -61,14 +61,14 @@
                 <span>Bạn có chắc chắn muốn xóa <b>{{ nameBookSelect }}?</b> </span>
                 <div class="footer-popup">
                     <div class="btn-popup btn-cancle" @click="() => {isShowPopupConfirm = false}">Hủy</div>
-                    <div class="btn-popup btn-save" @click="deleteUser()">Xác nhận</div>
+                    <div class="btn-popup btn-save" @click="deleteProduct()">Xác nhận</div>
                 </div>
            </div>
     </div>
 </template>
 
 <script>
-import { deleteUser } from '../../apis/adminApi';
+import { deleteProduct } from '../../apis/adminApi';
 import DetailOrderPopup from '../popups/DetailOrderPopup.vue';
 import { useToast } from 'vue-toastification';
 export default {
@@ -91,10 +91,17 @@ export default {
             this.nameBookSelect = item.fullname;
             this.isShowPopupConfirm = true;
         },
-        deleteUser() {
-            deleteUser(this.detailData.idUser).then((res) => {
-                this.setupToast.info("Đã xóa thành công");
-                this.isShowPopupConfirm = false
+        deleteProduct() {
+            deleteProduct(this.detailData.idUser).then((res) => {
+                if (res && res.succes) {
+                    this.setupToast.info("Đã xóa thành công");
+                    this.isShowPopupConfirm = false
+                }else 
+                {
+                    this.isShowPopupConfirm = false
+                    this.setupToast.error("Có lỗi xảy ra");
+                }
+                
             })
         },
         reloadData() {
