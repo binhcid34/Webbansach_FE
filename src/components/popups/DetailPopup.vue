@@ -234,8 +234,9 @@ export default {
 
 <style>
 .detail-popup {
+    min-height: fit-content;
     width: 680px;
-    height: 90%;
+    /* height: 90%; */
     background-color: #fff;
     margin: auto;
     margin-top: 60px;
@@ -306,10 +307,11 @@ export default {
 
 .footer-popup {
     display: flex;
-    justify-content: space-around;
-    position: absolute;
-    right: 24px;
-    bottom: 24px;
+    justify-content: flex-end;
+    margin-top: 8px;
+    /* position: absolute; */
+    /* right: 24px; */
+    /* bottom: 24px; */
 }
 
 .footer-popup .btn-popup {

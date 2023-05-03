@@ -1,7 +1,7 @@
 <template>
       <div class="admin-side-bar" :class="isShowMini?'admin-side-bar-mini':'admin-side-bar-medium'">
                 <div class="logo-branch">
-                    <i class="fas fa-store" v-if="!isShowMini"></i>
+                    <i class="fas fa-store" @click="redirectStore()" style="cursor: pointer;" v-if="!isShowMini"></i>
                     <i class="fas fa-bars icon" v-if="isShowMini" @click="toggleSlidebar()"></i>
                     <a v-if="!isShowMini">
                         <h5 class="logo-text">Quản lý cửa hàng</h5>
@@ -119,6 +119,9 @@ export default {
    methods: {
     toggleSlidebar() {
         this.$emit('toggleSlidebar');
+    },
+    redirectStore() {
+        this.$router.push("/")
     }
    },
 }

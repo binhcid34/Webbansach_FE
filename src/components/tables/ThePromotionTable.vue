@@ -100,7 +100,7 @@ export default {
         formartDate(date) {
             if (date !=null) {
                 var dateformart = new Date(date);
-                return `${dateformart.getDate()}/${dateformart.getMonth()}/${dateformart.getFullYear()}`
+                return `${dateformart.getDate()}/${dateformart.getMonth() + 1}/${dateformart.getFullYear()}`
             }
         }
     },
