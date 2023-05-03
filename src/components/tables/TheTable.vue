@@ -59,7 +59,15 @@
 
 <script>
 import DetailPopup from '../popups/DetailPopup.vue';
+import { useToast } from 'vue-toastification';
+import { deleteProduct } from '../../apis/adminApi';
+
 export default {
+    setup() {
+    // Option 2 (preferred): Inject the app-provided toast interface and return it from setup
+    const setupToast = useToast()
+    return { setupToast }
+    },
     methods: {
         selectedRow(item){
             this.detailData = item;
@@ -72,6 +80,19 @@ export default {
         deleteRow(item) {
             this.nameBookSelect = item.nameProduct;
             this.isShowPopupConfirm = true;
+        },
+        deleteProduct() {
+            deleteProduct(this.detailData.idUser).then((res) => {
+                if (res && res.succes) {
+                    this.setupToast.info("Đã xóa thành công");
+                    this.isShowPopupConfirm = false
+                }else 
+                {
+                    this.isShowPopupConfirm = false
+                    this.setupToast.error("Có lỗi xảy ra");
+                }
+                
+            })
         },
         
     },
