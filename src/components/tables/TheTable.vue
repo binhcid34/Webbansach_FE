@@ -10,7 +10,7 @@
                     
                 </div>
             </div>
-            <div class="row" v-for="(item, index) in listData" :class="rowSelected==item.idProduct?'row-selected':''" @dblclick="selectedRow(item)">
+            <div class="row" v-for="(item, index) in listProductData" :class="rowSelected==item.idProduct?'row-selected':''" @dblclick="selectedRow(item)">
                 <div class="cell" data-title="Full Name">
                     {{ item.nameProduct }}
                 </div>
@@ -86,7 +86,8 @@ export default {
             deleteProduct(this.rowSelected).then((res) => {
                 if (res && res.success) {
                     this.setupToast.info("Đã xóa thành công");
-                    this.isShowPopupConfirm = false
+                    this.isShowPopupConfirm = false;
+                    this.listProductData = this.listProductData.filter(item => item.idProduct != this.rowSelected);
                 }else 
                 {
                     this.isShowPopupConfirm = false
@@ -102,6 +103,7 @@ export default {
         listData: [],
     },
     created() {
+        this.listProductData = this.listData;
     },
     data() {
         return{
@@ -110,6 +112,7 @@ export default {
             isShowPopupConfirm: false,
             nameBookSelect: '',
             rowSelected:'',
+            listProductData: [],
         }
     },
     components:{DetailPopup}

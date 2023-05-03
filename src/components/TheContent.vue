@@ -225,7 +225,9 @@ export default {
                 window.addEventListener("scroll", () => {
                     if (window.scrollY > topDiff) {
                         this.isFixed = true;
-                        this.$refs.category.style.width = width + "px";
+                        if (this.$refs.category != null && this.$refs.category.style != null ){
+                            this.$refs.category.style.width = width + "px";
+                        } 
                     }
                     else {
                         this.isFixed = false;
