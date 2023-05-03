@@ -203,6 +203,7 @@ img {
     padding: 20px;
     min-height: 320px;
     border-bottom: 8px solid #f7f7f7;
+    overflow: auto;
 }
 
 .list-discount-content li {

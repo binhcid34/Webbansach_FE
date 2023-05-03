@@ -82,7 +82,7 @@ export default {
             this.isShowPopupConfirm = true;
         },
         deleteProduct() {
-            deleteProduct(this.detailData.idUser).then((res) => {
+            deleteProduct(this.rowSelected).then((res) => {
                 if (res && res.succes) {
                     this.setupToast.info("Đã xóa thành công");
                     this.isShowPopupConfirm = false
