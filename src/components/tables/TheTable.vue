@@ -79,6 +79,7 @@ export default {
         },
         deleteRow(item) {
             this.nameBookSelect = item.nameProduct;
+            this.rowSelected = item.idProduct;
             this.isShowPopupConfirm = true;
         },
         deleteProduct() {
