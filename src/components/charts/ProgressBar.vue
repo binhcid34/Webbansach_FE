@@ -1,4 +1,5 @@
 <template>
+    <div class="title-progress">Tiền mặt khi giao hàng</div>
  <DxProgressBar
       id="progress-bar-status"
       :min="0"
@@ -6,8 +7,8 @@
       :status-format="statusFormat"
       :value="orderDashboard?.TotalShipCode"
       width="90%"
-      height="60px"
     />
+    <div class="title-progress">Chuyển khoản</div>
     <DxProgressBar
       id="progress-bar-status"
       :min="0"
@@ -42,6 +43,10 @@ export default {
 }
 .dx-progressbar-range {
     background-color: #3da5f4;
+}
+.title-progress{
+    margin-top: 8px;
+    font-size: 12px;
 }
 
 </style>
