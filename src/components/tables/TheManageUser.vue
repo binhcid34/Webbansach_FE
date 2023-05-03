@@ -91,7 +91,7 @@ export default {
     watch:{
         filterSearch(newValue) {
             const me = this;
-            if (!newValue || newValue != '') {
+            if (newValue != '') {
                this.filterUserBySearch();
             } else {
                 this.getUser();
