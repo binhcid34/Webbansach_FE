@@ -83,7 +83,7 @@ export default {
         },
         deleteProduct() {
             deleteProduct(this.rowSelected).then((res) => {
-                if (res && res.succes) {
+                if (res && res.success) {
                     this.setupToast.info("Đã xóa thành công");
                     this.isShowPopupConfirm = false
                 }else 
