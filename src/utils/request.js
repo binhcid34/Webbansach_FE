@@ -2,6 +2,8 @@ import axios from 'axios'
 
 const service = axios.create({
     baseURL: 'https://test-book-store-api.herokuapp.com/api', // uri = baseURL + apiFunction truyền tới
+    // localhost
+    // baseURL: 'https://localhost:7175/api', // uri = baseURL + apiFunction truyền tới
     timeout: 20000,
     headers: { // Request Headers
         'content-type': 'application/json'

@@ -59,7 +59,7 @@
         </div>
 
         <div class="footer-popup">
-            <div class="btn-popup btn-cancle">
+            <div class="btn-popup btn-cancle" @click="closePopup()">
                 Hủy
             </div>
             <div class="btn-popup btn-save" @click="saveUser()">

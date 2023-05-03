@@ -14,7 +14,8 @@
     left: 0;
     height: 100%;
     width: 100%;
-    background-color: #f8f8f81e;
+    /* background-color: #f8f8f81e; */
+    background-color: #cfd8de4f;
 }
 .unit-price{
     font-weight: 400;
@@ -25,11 +26,18 @@
 }
 input{
     padding: 4px 8px;
-    padding-right: 24px;
+    padding-right: 32px;
 }
 .btn-insert{
+    min-height: 34px !important;
     background-color: rgb(230, 148, 34) !important;
 }
 .btn-insert:hover{
     background-color: rgb(176, 111, 19) !important;
+}
+.footer-popup .btn-popup{
+    min-height: 34px;
+}
+.title-popup{
+    font-size: 24px;
 }

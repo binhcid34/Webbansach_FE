@@ -60,7 +60,8 @@
     border: 1px solid #c5c2c2;
 }
 .popup-confirm{
-    height: 180px;
+    /* height: 180px; */
+    height: fit-content;
     position: relative;
     background-color: #fff;
     width: 320px;

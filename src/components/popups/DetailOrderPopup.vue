@@ -1,5 +1,5 @@
 <template>
-    <div class="detail-popup" style="height: 75%;">
+    <div class="detail-popup" style="height: 90%;">
         <div class="top-popup">
             <div class="title-popup">Chi tiết đơn hàng {{orderData.orderCode }}</div>
 

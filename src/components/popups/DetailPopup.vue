@@ -32,6 +32,7 @@
                         :value="detailData.idCategory"
                         display-expr="Title"
                         value-expr="ID"
+                        v-model="detailData.idCategory"
                     />
                     <!-- <input class="row-value" v-model="detailData.nameCategory"  /> -->
                 </div>
@@ -62,7 +63,7 @@
             </div>
             <div class="right-content">
                 <div class="img-product" @dragover.prevent @drop="onDrop">
-                    <input type="file" placeholder="Drop or chosse" style="z-index: 100; opacity: 1; width: 100%; height: 100%; outline: none; border: none;"
+                    <input type="file" placeholder="Drop or chosse" style="z-index: 100; opacity: 1; width: 100%; height: 100%; outline: none; border: none; min-width: 100%;"
                      @click="onChange" @change="onChange"/>
                     <!-- <div class="btn-choose" v-if="!imageProduct">Drop or chosse</div> -->
                     <img :src="imageProduct" alt="" class="img" v-if="imageProduct"/>
@@ -104,7 +105,7 @@
         </div>
 
         <div class="footer-popup">
-            <div class="btn-popup btn-cancle">
+            <div class="btn-popup btn-cancle" @click="closePopup()">
                 Hủy
             </div>
             <div class="btn-popup btn-save" @click="saveProduct()">
@@ -239,14 +240,14 @@ export default {
     /* height: 90%; */
     background-color: #fff;
     margin: auto;
-    margin-top: 60px;
+    margin-top: 24px;
     padding: 24px 24px;
     color: #000;
     position: relative;
     border-radius: 4px;
     border: 1px solid #a6a3a3;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
+    z-index: 99;
 }
 
 .top-popup {
@@ -272,6 +273,7 @@ export default {
     border-radius: 4px;
     padding: 8px 8px;
     min-width: 200px;
+    width: 200px;
 }
 
 .content-popup {
@@ -301,7 +303,7 @@ export default {
 }
 
 .row-detail .row-value {
-    min-height: 180px;
+    min-height: 160px;
     width: 100%;
 }
 
@@ -412,5 +414,8 @@ export default {
 input:focus-visible{
     border: 1px solid #28484f;
     outline: none;
+}
+.detail-popup{
+    width: 740px !important;
 }
 </style>

@@ -10,7 +10,7 @@
                     
                 </div>
             </div>
-            <div class="row" v-for="(item, index) in listData" :class="rowSelected==item.idUser?'row-selected':''" @dblclick="selectedRow(item)">
+            <div class="row" v-for="(item, index) in listUserData" :class="rowSelected==item.idUser?'row-selected':''" @dblclick="selectedRow(item)">
                 <div class="cell" data-title="Full Name">
                     {{ item.fullname }}
                 </div>
@@ -83,12 +83,14 @@ export default {
             this.detailData = item;
             this.nameBookSelect = item.fullname;
             this.isShowPopupConfirm = true;
+            this.rowSelected = item.idUser;
         },
         deleteUser() {
             deleteUser(this.detailData.idUser).then((res) => {
-                if (res && res.success) {
+                if (res) {
                     this.setupToast.info("Đã xóa thành công");
                     this.isShowPopupConfirm = false
+                    this.listUserData = this.listUserData.filter(item => item.idUser != this.rowSelected);
                 }
                 else {
                     this.setupToast.error(res.message);
@@ -103,6 +105,7 @@ export default {
         listData: [],
     },
     created() {
+        this.listUserData = this.listData;
     },
     data() {
         return{
@@ -111,9 +114,19 @@ export default {
             isShowPopupConfirm: false,
             nameBookSelect: '',
             rowSelected: '',
+            listUserData: [],
         }
     },
-    components:{ DetailUserPopup }
+    components:{ DetailUserPopup },
+    watch: {
+        listData: {
+            handler(newValue, oldValue) {
+                this.listUserData = newValue;
+            },
+            deep: true
+        }
+    },
+
 }
 
 </script>
