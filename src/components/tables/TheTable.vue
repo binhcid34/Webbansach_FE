@@ -115,6 +115,14 @@ export default {
             listProductData: [],
         }
     },
+    watch: {
+        listData: {
+            handler(newValue, oldValue) {
+                this.listProductData = newValue;
+            },
+            deep: true
+        }
+    },
     components:{DetailPopup}
 }
 
