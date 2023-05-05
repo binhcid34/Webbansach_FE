@@ -284,10 +284,13 @@ export default {
                         this.updateListProduct(res.data.data);
                         let totalRecord = res.data.totalRecord;
                         this.pageCount = Math.ceil(totalRecord / this.pageSize);
-                        const listDiscount = res.data.data.filter(x => x.discountSale && x.quantitySock);
-                        const length = listDiscount.length;
-                        this.quantityDiscount = Math.ceil(length / 5);
-                        this.listDiscountProduct = listDiscount.slice(0, 5);
+                        if (res.data.listDiscountProduct && res.data.listDiscountProduct.length > 0) {
+                            const listDiscount = res.data.listDiscountProduct.filter(x => x.discountSale && x.quantitySock);
+                            const length = listDiscount.length;
+                            this.quantityDiscount = Math.ceil(length / 5);
+                            this.listDiscountProduct = listDiscount.slice(0, 5);
+                        }
+
                     }
                 });
         },
