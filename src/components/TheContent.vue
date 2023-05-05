@@ -284,7 +284,9 @@ export default {
                         this.updateListProduct(res.data.data);
                         let totalRecord = res.data.totalRecord;
                         this.pageCount = Math.ceil(totalRecord / this.pageSize);
+
                         if (res.data.listDiscountProduct && res.data.listDiscountProduct.length > 0) {
+                            res.data.listDiscountProduct.map(i => i.imageProduct = this.formatImage(i.imageProduct));
                             const listDiscount = res.data.listDiscountProduct.filter(x => x.discountSale && x.quantitySock);
                             const length = listDiscount.length;
                             this.quantityDiscount = Math.ceil(length / 5);
