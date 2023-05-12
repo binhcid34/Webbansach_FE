@@ -21,7 +21,7 @@
                     {{ item.nameCategory }}
                 </div>
                 <div class="cell" data-title="Location">
-                    {{ item.publishingCompany }}
+                    {{ item.titleProduct }}
                 </div>
                 <div class="cell" data-title="Location">
                     {{ item.quantitySock }}
@@ -44,6 +44,7 @@
                 :detailData="detailData"
                 :type=2
                 @closePopup="closePopup"
+                :listDataCategory="listDataCategory"
             />
     </div>
     <div class="apui-popup" v-if="isShowPopupConfirm">
@@ -101,6 +102,7 @@ export default {
     props:{
         listColumns: [],
         listData: [],
+        listDataCategory: [],
     },
     created() {
         this.listProductData = this.listData;
@@ -338,27 +340,36 @@ iframe {
 
 .row .cell:nth-child(1) {
     width: 220px;
-    padding-left: 40px
+    padding-left: 10px;
+    white-space: nowrap;
 }
 
 .row .cell:nth-child(2) {
-    width: 180px
+    width: 180px;
+    padding-left: 10px;
+
 }
 
 .row .cell:nth-child(3) {
-    width: 180px
+    width: 180px;
+    padding-left: 10px;
+
 }
 
 .row .cell:nth-child(4) {
-    width: 180px
+    width: 180px;
+    padding-left: 10px;
 }
 .row .cell:nth-child(5) {
     width: 120px;
     text-align: center;
+    padding-left: 10px;
+    
 }
 .row .cell:nth-child(6) {
     width: 80px;
-    text-align: center;
+    padding-left: 10px;
+
 }
 .table,
 .row {

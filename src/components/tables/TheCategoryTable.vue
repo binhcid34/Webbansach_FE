@@ -12,7 +12,7 @@
             </div>
             <div class="row" v-for="(item, index) in listData">
                 <div class="cell" data-title="Full Name">
-                    {{ item.idCategory }}
+                    {{ index + 1  }}
                 </div>
                 <div class="cell" data-title="Age">
                     {{ item.nameCategory }}

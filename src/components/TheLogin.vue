@@ -106,7 +106,6 @@ export default {
                                 rtl: false
                             });
                     }
-                    debugger;
                 })
 
             }
