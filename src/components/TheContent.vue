@@ -248,7 +248,7 @@
 
 <script>
 import { addItems } from '../apis/cartApi';
-import { getProductFilter, getCategory, getProductFilterByCategory } from '../apis/productApi';
+import { getProductFilter, getCategory, getProductFilterByCategory, getAllCategory } from '../apis/productApi';
 import formatCurrencyVi from '../utils/formatCurrencyVi';
 import ThePagination from './ThePagination.vue';
 import { mapState, mapActions } from 'vuex';
