@@ -17,6 +17,7 @@
 import { mapActions, mapState } from 'vuex';
 import { updateUser } from '../apis/accountApi'
 import { checkPermission } from '../apis/accountApi'
+import { useToast } from "vue-toastification";
 
 export default {
     data() {
@@ -35,7 +36,16 @@ export default {
             await updateUser(this.info)
                 .then(res => {
                     if (res.success) {
+                        const toast = useToast();
                         this.updateUserInfo(this.info);
+                        toast.success('Cập nhật thông tin thành công', {
+                            position: "top-center",
+                            showCloseButtonOnHover: true,
+                            hideProgressBar: true,
+                            closeButton: "button",
+                            icon: true,
+                            rtl: false,
+                        });
                     }
                 })
         }
@@ -51,6 +61,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import url(../css/components/info.css);
 </style>
