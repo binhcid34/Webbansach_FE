@@ -311,6 +311,7 @@ export default {
         // this.getCategory();
         this.getAllProduct();
         this.toggleLoading(true);
+        this.getAllCategory();
     },
     mounted() {
         this.showSlides();
