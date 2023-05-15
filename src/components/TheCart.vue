@@ -237,7 +237,7 @@ export default {
         ...mapState({ cartItems: state => state.cart.cartItems }),
         ...mapState({ totalAmountAfterDiscount: state => state.cart.totalAmount }),
         ...mapState({ promotionPercent: state => state.cart.promotionPercent }),
-        ...mapState({isLoading: state => state.loading.isLoading}),
+        ...mapState({ isLoading: state => state.loading.isLoading }),
         totalAmount() {
             let total = 0;
             this.cartItems.forEach(i => {
