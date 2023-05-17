@@ -24,9 +24,10 @@
                         </td>
                         <td>
                             <div class="quantity-item">
-                                <div class="item icon" @click="minusQuantity(item)"><i class="fas fa-minus"></i></div>
+                                <div class="item icon" :class="item.quantity <= 1?'disabled':''" @click="minusQuantity(item)"><i class="fas fa-minus"></i></div>
                                 <div class="item quantity">{{ item.quantity }}</div>
-                                <div class="item icon" @click="increaseQuantity(item)"><i class="fas fa-plus"></i></div>
+                                <!-- <input v-model="item.quantity" /> -->
+                                <div class="item icon " :class="item.quantity >= item.quantitySock?'disabled':''" @click="increaseQuantity(item)"><i class="fas fa-plus"></i></div>
                             </div>
                         </td>
                         <td>
@@ -166,6 +167,18 @@ export default {
                 });
         },
         async increaseQuantity(item) {
+            if (item.quantity >= item.quantitySock) {
+                const toast = useToast();
+                toast.success(`Hiện tại trong kho sản phẩm chỉ còn ${item.quantitySock} quyển`, {
+                    position: "top-center",
+                    showCloseButtonOnHover: true,
+                    hideProgressBar: true,
+                    closeButton: "button",
+                    icon: true,
+                    rtl: false,
+                });
+                return;
+            }
             this.cartItems.forEach(i => {
                 if (i.idProduct === item.idProduct) {
                     i.quantity++;
@@ -248,7 +261,8 @@ export default {
         promotionInfo() {
             return this.promotionPercent != 0 ? `Giảm ${this.promotionPercent}% giá trị đơn hàng` : null;
         }
-    }
+    },
+   
 }
 </script>
 

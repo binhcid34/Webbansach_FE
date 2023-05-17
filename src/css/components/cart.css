@@ -126,6 +126,15 @@
     width: 5em;
     margin: 0 auto;
 }
+.quantity-item input{
+    outline: none;
+    border: none;
+    padding: 2px 2px !important;
+    width: fit-content !important; 
+    min-width: 25px;
+    text-align: center;
+    max-width: fit-content !important;
+}
 
 .quantity-item .item {
     display: flex;
@@ -137,6 +146,7 @@
 .quantity-item .icon {
     font-size: 12px;
     width: 2em;
+    padding: 4px;
 }
 
 .quantity-item .icon:hover {

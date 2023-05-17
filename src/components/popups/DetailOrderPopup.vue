@@ -70,15 +70,15 @@
         </div>
         <div class="row-content">
             <span>Số điện thoại:</span> 
-            <span>{{ orderData.fullName }}</span>
+            <span>{{ orderData.phoneNumber }}</span>
         </div>
         <div class="row-content">
             <span>Địa chỉ:</span> 
-            <span>{{ orderData.fullName }}</span>
+            <span>{{ orderData.address }}</span>
         </div>
         <div class="row-content">
             <span>Ngày mua:</span> 
-            <span>{{ orderData.fullName }}</span>
+            <span>{{ formatDate(orderData.lastTime) }}</span>
         </div>
         <div class="row-content">
             <span>Trạng thái thanh toán:</span> 
@@ -249,7 +249,14 @@ export default {
         
         changeCheckbox() {
             this.isAdminChecked = !this.isAdminChecked;
-        }
+        },
+        formatDate(oDate) {
+            const date = new Date(oDate);
+            const day = date.getDate();
+            const month = date.getMonth() + 1;
+            const year = date.getFullYear();
+            return day + "/" + month + "/" + year;
+        },
     },
     components:{
         DxSelectBox

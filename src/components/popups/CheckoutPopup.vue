@@ -45,9 +45,9 @@
                 <p>Số tiền:</p>
               </div>
               <div class="bold-text">
-                <p>Nguyễn Văn Dũng</p>
-                <p>0123456789</p>
-                <p>ACB</p>
+                <p>Nguyễn Đức Kiên</p>
+                <p>109869890676</p>
+                <p>Ngân hàng VietinBank</p>
                 <p>{{ formatCurrencyVi(totalAmountAfterDiscount) }}</p>
               </div>
             </div>
