@@ -108,8 +108,12 @@ export default {
             this.toggleLoading(true);
             await addItems(this.cartItems)
                 .then(res => {
+                    if(res.data) {
+                        this.updateTotalAmount(res.data.totalPayment);
+                    }
+                    
                     this.toggleLoading(false);
-                    this.updateTotalAmount(res.data.totalPayment);
+
                 });
             this.updateQuantityCart(this.cartItems.length);
             toast.success('Thêm vào giỏ hàng thành công', {
