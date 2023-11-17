@@ -20,7 +20,8 @@ export default {
         },
         UPDATE_PROMOTION_PERCENT(state, payload) {
             state.promotionPercent = payload;
-        }
+        },
+        
     },
     actions: {
         updateQuantityCart({ commit }, quantity) {

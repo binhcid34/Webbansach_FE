@@ -93,6 +93,7 @@ export default {
             toggleLoading: 'loading/toggleLoading',
         }),
         formatCurrencyVi,
+        // áp dụng MGG
         async applyPromotion() {
             this.toggleLoading(true);
             if (this.promotionCode != '' && this.promotionCode.length == 8) {

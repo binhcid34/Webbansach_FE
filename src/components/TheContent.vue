@@ -210,12 +210,10 @@
         <div class="right-list-wrapper">
     
             <div class="list-product">
-    
-                <div class="product" v-for="(item, index) in products" :key="index">
-    
+                <div class="product" v-for="(item, index) in products" :key="index" >
                     <img :src="item.imageProduct" alt="" @click="openDetail(item.idProduct)">
     
-                    <div class="product-info">
+                    <div class="product-info" v-if="item.quantitySock > 0">
     
                         <p id="product-name" class="hover-text-underline">{{ item.nameProduct }}
     
@@ -234,7 +232,17 @@
                         </div>
     
                     </div>
+                    <!-- hết hàng -->
+                    <div class="product-info" v-if="item.quantitySock <= 0">
+                        <p id="product-name" class="hover-text-underline">{{ item.nameProduct }}
     
+                        </p>
+
+                        <p id="product-author" class="hover-text-underline">{{ item.author }}</p>
+                        <div class="out-sock">Tạm thời hết hàng</div>
+                    </div>
+                    
+                   
                 </div>
     
             </div>
@@ -297,7 +305,7 @@ export default {
             // ],
             category: [],
             pageNumber: 1,
-            pageSize: 20,
+            pageSize: 12,
             pageCount: 0,
             idCategory: 0,
             slideIndex: 0,
@@ -522,5 +530,13 @@ export default {
 
 .list-discount-content img {
     min-height: 200px;
+}
+.out-sock{
+    background-color: rgb(221, 10, 10);
+    color: #fff;
+    padding: 4px 8px;
+    margin-top: 8px;
+    text-align: center;
+    border-radius: 4px;
 }
 </style>

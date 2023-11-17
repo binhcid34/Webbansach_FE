@@ -91,7 +91,7 @@
     
                             <div class="bold-text">
     
-                                <p>Nguyễn Đức Kiên</p>
+                                <p>Nguyễn Trọng Nghĩa</p>
     
                                 <p>109869890676</p>
     
@@ -99,7 +99,7 @@
     
                                 <p>{{ formatCurrencyVi(totalAmountAfterDiscount) }}</p>
     
-                            </div>updateTotalAmount
+                            </div>
     
                         </div>
     
@@ -126,6 +126,7 @@
 import { getItems, checkoutApi } from '../../apis/cartApi';
 import formatCurrencyVi from '../../utils/formatCurrencyVi';
 import { mapState } from 'vuex';
+import { useToast } from "vue-toastification";
 
 export default {
     components: {},
@@ -158,10 +159,14 @@ export default {
             this.$emit('closeCheckoutForm', 0);
         },
         async checkout() {
+            const toast = useToast();
             await checkoutApi(this.sessionOrder)
                 .then(res => {
                     if (res.success === true) {
                         this.$emit('closeCheckoutForm');
+                    } else {
+                        toast.error("Sản phẩm trong đơn hàng không đủ hoặc đã hết vui lòng đặt lại hàng")
+                        this.$emit('closeCheckoutForm', 0);
                     }
                 })
         }
