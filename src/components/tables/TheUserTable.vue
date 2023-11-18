@@ -23,7 +23,10 @@
                 <div class="cell" data-title="Location">
                     {{ item.address1 }}
                 </div>
-                <div class="cell" data-title="Location">
+                <div class="cell" data-title="Location" v-if="!isAdmin">
+                    {{ item.address2 }}
+                </div>
+                <div class="cell" data-title="Location" v-if="isAdmin">
                     <label class="switch">
                         <input type="checkbox" :checked="item.isAdmin == 1" disabled>
                         <span class="slider round"></span>
@@ -103,6 +106,7 @@ export default {
     props:{
         listColumns: [],
         listData: [],
+        isAdmin: false
     },
     created() {
         this.listUserData = this.listData;

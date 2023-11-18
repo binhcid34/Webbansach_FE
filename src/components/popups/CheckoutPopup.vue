@@ -149,6 +149,10 @@ export default {
                 .then(res => {
                     if (res.data) {
                         this.sessionOrder = res.data;
+                        // gán thông tin người nhận cho đơn hàng
+                        this.sessionOrder.fullName = this.logInfo.fullname;
+                        this.sessionOrder.email = this.logInfo.email;
+                        this.sessionOrder.phoneNumber = this.logInfo.phome;
                     }
                 });
         }
@@ -160,6 +164,19 @@ export default {
         },
         async checkout() {
             const toast = useToast();
+            // valid 
+            let errorMsg = this.checkError(this.sessionOrder);
+            if (errorMsg != "") {
+                toast.error(errorMsg, {
+                    position: "top-center",
+                    showCloseButtonOnHover: true,
+                    hideProgressBar: true,
+                    closeButton: "button",
+                    icon: true,
+                    rtl: false,
+                });
+                return;
+            }
             await checkoutApi(this.sessionOrder)
                 .then(res => {
                     if (res.success === true) {
@@ -169,13 +186,43 @@ export default {
                         this.$emit('closeCheckoutForm', 0);
                     }
                 })
+        },
+
+        checkError(sessionOrder) {
+            var errorMsg = "";
+            if (!sessionOrder.fullName || sessionOrder.fullName == "") {
+                return errorMsg = "Không được để trống họ và tên người nhận";
+            }
+            if (sessionOrder.fullName.length > 50) {
+                return errorMsg = "Tên người nhận quá dài"
+            }
+            if (!sessionOrder.phoneNumber || sessionOrder.phoneNumber == "") {
+                return errorMsg = "Không được để trống số điện thoại";
+            }
+            if (sessionOrder.phoneNumber.length > 25) {
+                return errorMsg = "Số điện thoại quá dài";
+            }
+            if (!sessionOrder.email || sessionOrder.email == "") {
+                return errorMsg = "Không được để trống Email";
+            }
+            if (sessionOrder.email.length > 36) {
+                return errorMsg = "Email quá dài";
+            }
+            if (!sessionOrder.address || sessionOrder.address == "") {
+                return errorMsg = "Không được để trống địa chỉ";
+            }
+            if (sessionOrder.address.length > 255) {
+                return errorMsg = "Địa chỉ quá dài";
+            }
+            return errorMsg;
         }
     },
     computed: {
         ...mapState({ totalAmountAfterDiscount: state => state.cart.totalAmount }),
         showQrCode() {
             return this.sessionOrder.paymentType == 2;
-        }
+        },
+        ...mapState({ logInfo: state => state.user.userInfo })
     }
 }
 </script>

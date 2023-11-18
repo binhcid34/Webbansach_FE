@@ -1,5 +1,5 @@
 <template>
-    <div class="cart-wrapper">
+    <div class="cart-wrapper" :key="keyCart">
         <div class="cart">
             <div class="row-item">
                 <p class="cart-title">Giỏ hàng</p>
@@ -79,6 +79,7 @@ export default {
         return {
             isShowCheckoutForm: false,
             promotionCode: '',
+            keyCart: 0
         }
     },
     components: {
@@ -206,8 +207,16 @@ export default {
                 icon: true,
                 rtl: false,
             });
+            this.clearCart();
+            
+        },
+        // reset lại giỏ hàng sau khi đặt hàng xong
+        clearCart () {
             this.updateQuantityCart(0);
             this.updateCartItems([]);
+            this.totalAmountAfterDiscount = 0;
+            this.updateTotalAmount(0);
+            this.updatePromotionPercent(0);
         },
         showCheckoutForm() {
             const toast = useToast();
@@ -232,6 +241,7 @@ export default {
                 });
             }
             else this.isShowCheckoutForm = true;
+
         },
         priceAfterDiscount(item) {
             return item.priceProduct - (item.priceProduct * item.discountSale / 100);

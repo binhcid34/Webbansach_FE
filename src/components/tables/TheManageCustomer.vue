@@ -13,6 +13,7 @@
             :listColumns="listColumns"
             :listData="listUser"
             :isAdmin="isAdmin"
+
         />
         <div class="apui-popup" v-if="isShowPopup">
             <DetailUserPopup 
@@ -39,7 +40,7 @@ export default {
                 "Email",
                 "Số điện thoại",
                 "Địa chỉ 1",
-                "Là Admin",
+                "Địa chỉ 2",
 
             ],
             filterSearch: '',
@@ -54,7 +55,7 @@ export default {
                 address2 : null,
             },
             isShowPopup: false,
-            isAdmin : true,
+            isAdmin : false
         }
     },
     methods: {

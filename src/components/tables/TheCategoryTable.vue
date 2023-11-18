@@ -61,7 +61,7 @@
     
     <div class="apui-popup" v-if="isShowPopupConfirm">
            <div class="popup-confirm">
-                <span>Bạn có chắc chắn muốn xóa mã giảm giá: <b>{{ nameBookSelect }}?</b> </span>
+                <span>Bạn có chắc chắn muốn xóa danh mục: <b>{{ nameBookSelect }}?</b> </span>
                 <div class="footer-popup">
                     <div class="btn-popup btn-cancle" @click="() => {isShowPopupConfirm = false}">Hủy</div>
                     <div class="btn-popup btn-save" @click="deleteUser()">Xác nhận</div>

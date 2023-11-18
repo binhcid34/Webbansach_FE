@@ -31,7 +31,7 @@
                     <input class="row-value" v-model="userDetail.phone" />
                 </div>
 
-                <div class="row-content">
+                <div class="row-content" v-if="isAdmin">
                     <div class="row-title">
                         Là Admin:
                     </div>
@@ -42,6 +42,12 @@
                 </div>
             </div>
             
+        </div>
+
+        <div class="row-detail" v-if="type != 1">
+            <div >
+                Danh sách đơn hàng: {{ userDetail.listOrderCode ??'Trống' }}
+            </div>
         </div>
 
         <div class="row-detail">
@@ -57,6 +63,8 @@
             </div>
             <textarea class="row-value" style="min-height: 120px;" v-model="detailData.address2"> </textarea>
         </div>
+
+       
 
         <div class="footer-popup">
             <div class="btn-popup btn-cancle" @click="closePopup()">

@@ -24,8 +24,15 @@
 
                     <li :class="chooseSideBar==3?'active-admin':''" @click="chooseSideBar = 3">
                         <RouterLink class= "admin-link" to="/manageuser">
-                            <i class="fas fa-users"></i>
+                            <i class="fas fa-user-secret"></i>
                             <span>Quản lý người dùng</span>
+                        </RouterLink>
+                    </li>
+
+                    <li :class="chooseSideBar==7?'active-admin':''" @click="chooseSideBar = 7">
+                        <RouterLink class= "admin-link" to="/managecustomer">
+                            <i class="fas fa-users"></i>
+                            <span>Quản lý khách hàng</span>
                         </RouterLink>
                     </li>
                     

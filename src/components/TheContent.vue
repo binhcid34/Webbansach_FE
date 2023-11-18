@@ -241,7 +241,30 @@
                         <p id="product-author" class="hover-text-underline">{{ item.author }}</p>
                         <div class="out-sock">Tạm thời hết hàng</div>
                     </div>
-                    
+                    <div class="hide-detail">
+                        <div >
+                            <div class="product-wrapper">
+                                <div class="product-detail">
+                                    <p id="product-name">{{ item.nameProduct }}</p>
+                                    <p id="product-author">{{ item.author }}</p>
+                                    <p id="product-des">{{ fomartText(item.descriptionProduct) }}</p>
+                                    <p id="product-price">{{ priceAfterDiscount(item) }}</p>
+                                    <div class="fontsize-12" id="promotion-info">Tiết kiệm:<p id="promotion-amount">{{ formatCurrencyVi(item.priceProduct * item.discountSale / 100) }} ({{ item.discountSale }}%)</p>
+                                    </div>
+                                    <p class="fontsize-12" id="real-price">Giá thị trường: {{ formatCurrencyVi(item.priceProduct) }}</p>
+                                    <div class="fontsize-12" id="product-status">
+                                        Tình trạng:
+                                        <p v-if="item.quantitySock">Còn hàng</p>
+                                        <p v-else>Hết hàng</p>
+                                    </div>
+                                    <button id="add-to-cart" @click="openDetail(item.idProduct)">Xem chi tiết</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="arrow">
+
+                        </div>
+                    </div>
                    
                 </div>
     
@@ -491,6 +514,14 @@ export default {
 
                 }
             })
+        },
+         /// làm cho chuỗi kí tự ngắn lại
+         fomartText(text) {
+            if (!text) return "";
+            if (text.length > 256) {
+                text = text.slice(0, 256) + "...";
+            }
+            return text;
         }
     },
     computed: {
@@ -517,7 +548,8 @@ export default {
         currentIndex(newVal) {
             const discountProduct = this.products.filter(x => x.discountSale && x.quantitySock);
             this.listDiscountProduct = discountProduct.slice((newVal - 1) * 5, newVal * 5);
-        }
+        },
+       
     }
 }
 </script>
@@ -538,5 +570,42 @@ export default {
     margin-top: 8px;
     text-align: center;
     border-radius: 4px;
+}
+.hide-detail{
+    display: none;
+    position: absolute;
+    background-color: bisque;
+    top: 0;
+    left: 220px;
+    min-width: 220px;
+    z-index: 9;
+    border-radius: 4px;
+    padding: 16px;
+}
+.product:hover  .hide-detail {
+  display: block;
+  color: red;
+}
+.hide-detail .product-wrapper .product-detail{
+    margin: 0;
+}
+.product{
+    position: relative;
+}
+.hide-detail #product-des {
+}
+.hide-detail button{
+    width: 180px;
+    padding: 8px 16px;
+    
+}
+.arrow{
+    position: absolute;
+    height: 16px;
+    width: 16px;
+    background-color: bisque;
+    top: 25%;
+    left: -2px;
+    transform: rotateZ(45deg) translateX(-50%);
 }
 </style>

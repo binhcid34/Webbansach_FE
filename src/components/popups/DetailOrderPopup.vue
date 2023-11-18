@@ -98,12 +98,14 @@
                 </div>
                 <div class="item-order-list" v-for="(item, index) in orderListProduct">
                     <div class="name-item"> {{item.NameProduct}}</div>
-                    <div class="price-item">{{ item.PriceProduct }} <span class="unit-price">đ</span></div>
+                    <div class="price-item" v-if="item.DiscountSale"> {{item.PriceProduct * item.DiscountSale/ 100}} <span class="unit-price">đ</span></div>
+                    <div class="price-item" v-if="!item.DiscountSale">{{ item.PriceProduct }} <span class="unit-price">đ</span></div>
                     <div class="quantity-item">{{item.Quantity}}</div>
 
                 </div>
            </div>
-           <div class="total-list-product">Tổng tiền: {{ orderData.totalPayment }} <span class="unit-price">đ</span></div>
+           <div class="total-list-product" v-if="orderData.promotionPercent">Voucher giảm giá: {{ orderData.promotionPercent }} <span class="unit-price">%</span></div>
+           <div class="total-list-product">Tổng tiền sau giảm giá nếu có: {{ orderData.totalPayment }} <span class="unit-price">đ</span></div>
         </div>
         <div class="footer-popup">
             <div class="btn-popup btn-cancle" :class="orderData.paymentStatus == 4 ? 'disabled':''" @click="updateOrder(4)">
@@ -216,6 +218,7 @@ export default {
         async updateOrder(paymentSatus){
             var me = this;
             var checked = true;
+            debugger;
             if (paymentSatus == this.orderData.paymentStatus ) {
                 return ;
             } 
@@ -227,8 +230,9 @@ export default {
                     checked = false;
                     me.setupToast.error("Có lỗi xảy ra!");
                 }
-            }) 
-            await updateQuantity(me.orderData.idOrder, 2).then((res) => {
+            })
+            if (this.orderData.paymentStatus == 2) {
+                await updateQuantity(me.orderData.idOrder, 2).then((res) => {
                 if (res && res.success) {
                   
                 }
@@ -237,6 +241,19 @@ export default {
                     me.setupToast.error("Có lỗi xảy ra!");
                 }
             })
+            }else if(this.orderData.paymentStatus  == 4 && paymentSatus == 2) {
+                await updateQuantity(me.orderData.idOrder, 1).then((res) => {
+                if (res && res.success) {
+                  
+                }
+                else {
+                    checked = false;
+                    me.setupToast.error("Có lỗi xảy ra!");
+                }
+                })
+            }
+            
+            
             if (checked){ 
                 me.setupToast.info("Đã cập nhật đơn hàng thành công")
                     me.closePopup();

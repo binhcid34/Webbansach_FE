@@ -1,15 +1,15 @@
 import request from '../utils/request'
 
-export function getAllUser() {
+export function getAllUser(payload) {
     return request({
-        url: '/Admin',
+        url: `/Admin?isAdmin=${payload}`,
         methods: 'get'
     });
 }
 
-export function getAllUserByName(param) {
+export function getAllUserByName(param, isAdmin) {
     return request({
-        url: `/Admin/search/${param}`,
+        url: `/Admin/search/${param}?isAdmin=${isAdmin}`,
         method: 'post'
     });
 }
