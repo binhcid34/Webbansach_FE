@@ -581,6 +581,7 @@ export default {
     z-index: 9;
     border-radius: 4px;
     padding: 16px;
+    color: #fff;
 }
 .product:hover  .hide-detail {
   display: block;

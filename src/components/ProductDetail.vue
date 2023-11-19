@@ -124,7 +124,10 @@ export default {
                     closeButton: "button",
                     icon: true,
                     rtl: false
-                });
+            });
+
+            this.$router.push("/cart");
+            
 
         },
         formatImage(url) {

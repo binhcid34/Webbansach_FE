@@ -30,6 +30,9 @@
                 <div class="cell" data-title="Job Title">
                     {{ formartDate(item.modifiedDate) }}
                 </div>
+                <div class="cell center" data-title="Job Title">
+                    {{ item.totalProduct ?? 0 }} 
+                </div>
                 <!-- <div class="cell" data-title="Location">
                     {{ enumPaymentStatus[item.paymentStatus] }}
                 </div>
@@ -97,7 +100,12 @@ export default {
         deleteUser() {
             deleteCategory(this.detailData.idCategory).then((res) => {
                 if (res) {
-                    this.setupToast.info("Đã xóa thành công");
+                    if (res.succes) {
+                        this.setupToast.info(res.message);
+                    }
+                    else {
+                        this.setupToast.warning(res.message);
+                    }
                     this.isShowPopupConfirm = false;
                     this.$emit("reloadData");
                 }
@@ -504,5 +512,8 @@ input:checked + .slider:before {
 .left{
     text-align: right;
     
+}
+.center {
+    text-align: center;
 }
 </style>

@@ -164,6 +164,43 @@ export default {
             if (this.isAdminChecked == true) this.userDetail.isAdmin = 1;
             else this.userDetail.isAdmin = 0;
             var me = this;
+
+            // valid user trước khi thêm mới hoặc chính sửa
+            var user = this.userDetail;
+            if (!user) {
+                this.setupToast.error("Dữ liệu người dùng không được trống");
+                return;
+            }
+            if (!user.fullname || user.fullname == "") {
+                this.setupToast.error("Tên người dùng không được trống");
+                return;
+            }
+
+            if (user.fullname.length > 50) {
+                this.setupToast.error("Tên người dùng không được quá 50 ký tự");
+                return;
+            }
+
+            if (!user.email || user.email == "") {
+                this.setupToast.error("Email không được trống");
+                return;
+            }
+
+            if (user.email.length > 50) {
+                this.setupToast.error("Email không được quá 50 ký tự");
+                return;
+            }
+
+            if (!user.phone || user.phone == "") {
+                this.setupToast.error("Số điện thoại không được trống");
+                return;
+            }
+
+            if (user.phone.length > 20) {
+                this.setupToast.error("Số điện thoại không được quá 50 ký tự");
+                return;
+            }
+
             if (this.type == 1) {
                 await insertNewUser(this.userDetail).then((res) => {
                         this.setupToast.info(res.message);

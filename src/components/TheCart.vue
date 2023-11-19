@@ -51,7 +51,7 @@
                 <div class="promotion-code">Mã giảm giá</div>
                 <div class="promotion-field">
                     <input type="text" placeholder="Nhập vào mã giảm giá" v-model="promotionCode">
-                    <button @click="applyPromotion">Áp dụng</button>
+                    <button :class="cartItems.length === 0?'disabled' :''" @click="applyPromotion">Áp dụng</button>
                 </div>
             </div>
             <p class="promotion-info">{{ promotionInfo }}</p>
@@ -59,7 +59,7 @@
                 <div class="total-amount-title">Tổng tiền phải trả: </div>
                 <p class="total-amount">{{ formatCurrencyVi(totalAmountAfterDiscount) }}</p>
             </div>
-            <button @click="showCheckoutForm">Thanh toán</button>
+            <button :class="cartItems.length === 0?'disabled' :''" @click="showCheckoutForm">Thanh toán</button>
         </div>
         <CheckoutPopup v-if="isShowCheckoutForm" :totalAmount="totalAmount" @closeCheckoutForm="closeCheckoutForm" />
     </div>
@@ -96,12 +96,22 @@ export default {
         formatCurrencyVi,
         // áp dụng MGG
         async applyPromotion() {
+            const toast = useToast();
             this.toggleLoading(true);
+            if (this.cartItems.length == 0) {
+                toast.warning('Giỏ hàng đang trống', {
+                                position: "top-center",
+                                showCloseButtonOnHover: true,
+                                hideProgressBar: true,
+                                closeButton: "button",
+                                icon: true,
+                                rtl: false,
+                            });
+            }
             if (this.promotionCode != '' && this.promotionCode.length == 8) {
                 await applyPromotionCode(this.promotionCode)
                     .then(res => {
                         this.toggleLoading(false);
-                        const toast = useToast();
                         if (res.success && res.data) {
                             this.updateTotalAmount(res.data.totalPayment);
                             this.updatePromotionPercent(res.data.promotionPercent);

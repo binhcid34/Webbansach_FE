@@ -66,3 +66,11 @@ export function getAllCategory(param) {
         data: param
     })
 }
+
+export function getProductStorage(payload) {
+    return request({
+        url: `/product/storage`,
+        method: 'post',
+        data: payload
+    });
+}

@@ -5,9 +5,9 @@
                 <input placeholder="Nhập từ bạn muốn tìm kiếm" v-model="filterSearch"/>
                 <i class="fa-solid fa-magnifying-glass"></i>
             </div>
-            <div class="btn-insert" @click="add()">
+            <!-- <div class="btn-insert" @click="add()" v-if="isAdmin">
                 <span>Thêm mới</span>
-            </div>
+            </div> -->
         </div>
         <TheUserTable 
             :listColumns="listColumns"

@@ -124,35 +124,6 @@ export default {
         return {
             productDetail: null,
             imageProduct: null,
-            // listCategory: [{
-            //     ID: 1,
-            //     Title: 'Sách chính trị pháp luật',
-            //     }, 
-            //     {
-            //     ID: 2,
-            //     Title: 'Sách khoa học công nghệ kinh tế',
-            //     },
-            //     {
-            //     ID: 3,
-            //     Title: 'Sách văn học nghệ thuật',
-            //     },
-            //     {
-            //     ID: 4,
-            //     Title: 'Sách văn học xã hội lịch sử',
-            //     },
-            //     {
-            //     ID: 5,
-            //     Title: 'Sách giáo trình',
-            //     },
-            //     {
-            //     ID: 6,
-            //     Title: 'Sách truyện tiểu thuyết',
-            //     },
-            //     {
-            //     ID: 7,
-            //     Title: 'Sách thiếu nhi',
-            //     }
-            // ]
         }
     },
     setup() {
@@ -202,9 +173,84 @@ export default {
         },
         async saveProduct(){
             this.productDetail.imageProduct = this.getBase64StringFromDataURL(this.imageProduct);
+
             if (this.productDetail.discountSale == null) {
                 this.productDetail.discountSale = 0;
             }
+
+            if(!this.productDetail.imageProduct){
+                this.setupToast.warning("Không được trống ảnh sản phẩm")
+                return;
+            }
+
+            // valid trước khi insert
+            if(!this.productDetail.nameProduct || this.productDetail.nameProduct == ""){
+                this.setupToast.warning("Không được trống tên sản phẩm")
+                return;
+            }
+
+            if(!this.productDetail.nameProduct.length> 100){
+                this.setupToast.warning("Tên sách quá dài")
+                return;
+            }
+            
+            if(!this.productDetail.author || this.productDetail.author == ""){
+                this.setupToast.warning("Không được trống tên tác giả")
+                return;
+            }
+            
+            if(!this.productDetail.author.length > 50){
+                this.setupToast.warning("Tên tác giả quá dài")
+                return;
+            }
+            
+            if(!this.productDetail.titleProduct || this.productDetail.titleProduct == ""){
+                this.setupToast.warning("Không được trống nhà xuất bản")
+                return;
+            }
+            
+            if(!this.productDetail.pageNumber || this.productDetail.pageNumber == ""){
+                this.setupToast.warning("Không được trống số trang sách")
+                return;
+            }
+
+            if(!this.productDetail.pageNumber || this.productDetail.pageNumber == ""){
+                this.setupToast.warning("Không được trống số trang sách")
+                return;
+            }  
+
+            if(this.productDetail.descriptionProduct && this.productDetail.descriptionProduct.length > 65535){
+                this.setupToast.warning("Chi tiết sách quá dài");
+                return;
+            }  
+
+            if(!this.productDetail.quantitySock || parseInt(this.productDetail.quantitySock) != this.productDetail.quantitySock){
+                this.setupToast.warning("Số lượng sách phải là số và không được trống");
+                return;
+            }  
+            
+            if(!this.productDetail.quantitySock || parseInt(this.productDetail.quantitySock) != this.productDetail.quantitySock){
+                this.setupToast.warning("Số lượng sách phải là số và không được trống")
+                return;
+            }
+
+            if(this.type == 2 && (!this.productDetail.quantitySold || parseInt(this.productDetail.quantitySold) != this.productDetail.quantitySold)){
+                this.setupToast.warning("Số lượng sách đã bán phải là số và không được trống")
+                return;
+            } 
+
+            if(!this.productDetail.priceProduct || parseInt(this.productDetail.priceProduct) != this.productDetail.priceProduct){
+                this.setupToast.warning("Giá tiền phải là số và không được trống")
+                return;
+            }
+
+            
+            if(this.productDetail.discountSale && parseInt(this.productDetail.discountSale) != this.productDetail.discountSale){
+                this.setupToast.warning("% giảm giá phải là số")
+                return;
+            } 
+
+
             // nếu type = 1 thì thêm mới
             if (this.type == 1) {
                 await insertProduct(this.productDetail).then((res) => {
@@ -225,6 +271,7 @@ export default {
             this.imageProduct = null;
         },
         getBase64StringFromDataURL (dataURL){
+            if (!dataURL) return;
             return dataURL.replace('data:', '').replace(/^.+,/, '');
         }
     },

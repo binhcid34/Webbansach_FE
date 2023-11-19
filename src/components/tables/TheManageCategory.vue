@@ -48,6 +48,7 @@ export default {
                "Ngày tạo",
                "Người sửa",
                "Ngày sửa",
+                "Số lượng sách của danh mục"
            ],
            filterSearch: '',
            listOrder : [],
@@ -109,6 +110,11 @@ export default {
                 // check MGG
                 if (this.valueCategoryName == '' ||  this.valueCategoryName == null) {
                     this.setupToast.error("Không được để trống tên danh mục");
+                    this.valueCategoryName = null;
+                }
+                // check độ dài
+                else if (this.valueCategoryName.length > 100) {
+                    this.setupToast.error("Tên danh mục quá dài, độ dài nhỏ hơn 100");
                     this.valueCategoryName = null;
                 }
                 else {

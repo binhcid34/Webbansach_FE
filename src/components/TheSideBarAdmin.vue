@@ -54,6 +54,12 @@
                             <span>Quản lý mã giảm giá</span>
                         </RouterLink>
                     </li>
+                    <li class="active" :class="chooseSideBar==8?'active-admin':''" @click="chooseSideBar = 8">
+                        <RouterLink class= "admin-link" to="/managestorage">
+                            <i class="fas fa-warehouse"></i>
+                             <span>Quản lý kho hàng</span>
+                        </RouterLink>
+                    </li>
                     <!-- <li>
                         <i class="fas fa-table"></i>
                         <a >
